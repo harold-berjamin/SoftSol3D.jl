@@ -35,5 +35,6 @@ deploydocs(;
     repo = "github.com/harold-berjamin/SoftSol3D.jl.git",
     target = "build",
     branch = "gh-pages",
+    devbranch = "gh-pages",
     versions = ["stable" => "v^", "v#.#" ],
 )
