@@ -14,7 +14,7 @@ using Documenter, Dates
 push!(LOAD_PATH,"../src/") # if path not loaded
 using SoftSol3D
 
-makedocs(
+makedocs(;
     sitename = "SoftSol3D.jl",
     format = Documenter.HTML(
         prettyurls = get(ENV, "CI", nothing) == "true",
@@ -28,14 +28,14 @@ makedocs(
         "Home" => "index.md",
         "API" => "api.md",
         "Manual" => "man.md",
-    ],
-    doctest = true
+    ]
 )
 
-deploydocs(
-    repo = "https://github.com/harold-berjamin/SoftSol3D.jl.git",
+deploydocs(;
+    repo = "github.com/harold-berjamin/SoftSol3D.jl.git",
     target = "build",
     branch = "gh-pages",
-    devbranch = "master", 
+    devbranch = "master",
+    devurl = "dev",
     versions = ["stable" => "v^", "v#.#"],
 )
