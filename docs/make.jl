@@ -28,7 +28,8 @@ makedocs(;
         "Home" => "index.md",
         "API" => "api.md",
         "Manual" => "man.md",
-    ]
+    ],
+    doctest = true,
 )
 
 deploydocs(;
