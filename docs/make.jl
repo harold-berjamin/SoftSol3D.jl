@@ -18,10 +18,11 @@ makedocs(
     sitename = "SoftSol3D.jl",
     format = Documenter.HTML(
         prettyurls = get(ENV, "CI", nothing) == "true",
-        edit_link = nothing,
+        edit_link = "github.com/harold-berjamin/SoftSol3D.jl.git",
         repolink = "github.com/harold-berjamin/SoftSol3D.jl.git"
     ),
     remotes = nothing,
+    repo = Remotes.GitHub("harold-berjamin", "SoftSol3D.jl"),
     authors = "Harold Berjamin",
     pages = [
         "Home" => "index.md",
