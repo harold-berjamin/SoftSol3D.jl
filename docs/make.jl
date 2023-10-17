@@ -34,5 +34,6 @@ makedocs(
 deploydocs(;
     repo = "github.com/harold-berjamin/SoftSol3D.jl.git",
     devbranch = "master",
+    versions = ["stable" => "v^", "v#.#", "dev" => "master"],
     push_preview = true
 )
