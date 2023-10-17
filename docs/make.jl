@@ -18,8 +18,8 @@ makedocs(
     sitename = "SoftSol3D.jl",
     format = Documenter.HTML(
         prettyurls = get(ENV, "CI", nothing) == "true",
-        edit_link = "github.com/harold-berjamin/SoftSol3D.jl.git",
-        repolink = "github.com/harold-berjamin/SoftSol3D.jl.git"
+        edit_link = "https://github.com/harold-berjamin/SoftSol3D.jl.git",
+        repolink = "https://github.com/harold-berjamin/SoftSol3D.jl.git"
     ),
     remotes = nothing,
     repo = Remotes.GitHub("harold-berjamin", "SoftSol3D.jl"),
@@ -33,7 +33,7 @@ makedocs(
 )
 
 deploydocs(
-    repo = "github.com/harold-berjamin/SoftSol3D.jl.git",
+    repo = "https://github.com/harold-berjamin/SoftSol3D.jl.git",
     target = "build",
     branch = "gh-pages",
     devbranch = "master", 
