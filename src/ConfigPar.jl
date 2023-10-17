@@ -1,3 +1,6 @@
+"""
+ Defines the data types using Parameters.jl.
+"""
 module ConfigPar
 
 using Parameters, JuliaInterpreter, LinearAlgebra, SpecialFunctions
@@ -47,6 +50,9 @@ Sin2(t,Ω) = (sin(Ω*t) - 0.5*sin(2*Ω*t)) .* ((t>=0) - (t>=2*π/Ω))
 # --------------------------------
 # Data structures
 
+"""
+ Material parameters.
+"""
 @with_kw mutable struct Material
     ρ::Float64 = ρ; @assert ρ > 0.
     μ::Float64 = μ; @assert μ > 0.
@@ -59,6 +65,9 @@ Sin2(t,Ω) = (sin(Ω*t) - 0.5*sin(2*Ω*t)) .* ((t>=0) - (t>=2*π/Ω))
     cp::Float64 = sqrt(abs(μ/ρ*(4/3. + 1/ϵ))); @assert cp > 0.
 end
 
+"""
+ Computational parameters.
+"""
 @with_kw mutable struct Mesh
     xmin::Array{Float64} = xmin; @assert length(xmin) == 3
     xmax::Array{Float64} = xmax; @assert length(xmax) == 3
@@ -77,12 +86,18 @@ end
     Fp05::Array{Array{Float64,1},3} = [ zeros(Nf) for i=1:Nx[1]+1, j=1:Nx[2]+1, k=1:Nx[3]+1 ]
 end
 
+"""
+Source sub-parameters.
+"""
 @with_kw mutable struct SourcePar
     type::String = type
     dir::Int64 = dir; @assert (dir > 0) & (dir < 4)
     cmp::Int64 = cmp; @assert (cmp > 0) & (cmp < 4)
 end
 
+"""
+ Source parameters (loading).
+"""
 @with_kw mutable struct Source
     spar::SourcePar = SourcePar()
     Ω::Float64 = Ω; @assert Ω > 0.
