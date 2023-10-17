@@ -29,6 +29,10 @@ pkg> add /home/JuliaUser/Downloads/SoftSol3D
 
 where `/home/JuliaUser/Downloads/SoftSol3D` is the path to the SoftSol3D folder.
 
+### Citation
+
+H. Berjamin (2023). "Computation of viscoelastic shear shock waves using finite volume schemes with artificial compressibility", *Arxiv preprint* 2310.04355. [doi:10.48550/arXiv.2310.04355](https://doi.org/10.48550/arXiv.2310.04355)
+
 ### Acknowledgments
 
 This project began during a Postdoc project at the University of Galway. It has received funding from the European Union's Horizon 2020 research and innovation programme under Grant No. TBI-WAVES—H2020-MSCA-IF-2020 Project No. 101023950.
