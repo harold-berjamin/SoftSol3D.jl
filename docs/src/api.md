@@ -1,4 +1,4 @@
-he application programming interface.
+The application programming interface.
 
 ### Functions
 
