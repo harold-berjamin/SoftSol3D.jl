@@ -21,6 +21,7 @@ UpdateJulia = "770da0de-323d-4d28-9202-0e205c1e0aff"
 WriteVTK = "64499a7a-5c06-52f2-abe2-ccb03c286192"
 
 [compat]
+Parameters = "0.12"
 julia = "1"
 
 [extras]
