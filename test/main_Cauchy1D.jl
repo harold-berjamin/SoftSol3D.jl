@@ -15,7 +15,7 @@ using Plots, WriteVTK
 gr() # Plots backend (gr, pyplot, plotly, inspectdr, unicodeplots)
 
 # Load modules
-using SoftSol3D
+using Parameters, JuliaInterpreter, SoftSol3D
 print("Dependencies loaded\n")
 
 # Main function (no declaration in global scope)
@@ -26,9 +26,9 @@ function main()
         ρ = 1.0e3, # 1.0e3 (kg/m³)
         μ = 2.684e3, # 2.684e3 (Pa)
         β = 0., # 4.4
-        g = [0.0434, 0.0466, 0.2213], # [0.0434, 0.0466, 0.2213]
-        ω = 2*π * [10^1, 10^2, 10^3], # 2*π * [10^1, 10^2, 10^3]
-        ϵ = 0.9 # 0.9 (AC parameter)
+        g = [], # [0.0434, 0.0466, 0.2213]
+        ω = 2*π * [], # 2*π * [10^1, 10^2, 10^3]
+        ϵ = 0.9 # 0.9, 4*(1/50)^0.3 (AC parameter)
     )
     mesh = Mesh(
         xmin = [-0.5, -0.1, -0.1], # [-0.5, -0.1, -0.1]
@@ -43,7 +43,7 @@ function main()
     Sin2(t::Float64, Ω::Float64) = 1e0 * (sin(Ω*t) - 0.5*sin(2*Ω*t)) .* ((t>=0) - (t>=2*π/Ω))
     src = Source(
         spar = SourcePar(
-            type = "Plane", # "None", "Plane", "Point"
+            type = "None", # "None", "Plane", "Point"
             dir = 1, # 1
             cmp = 2 # 2
         ),
@@ -51,8 +51,19 @@ function main()
         signal = Sin2 # Sin2
     )
     fpara = 9 + src.spar.cmp # field for paraview display
-    ana = false # analytical computations
+    ana = true # analytical computations
     print("Configuration defined\n")
+
+    # Initialisation
+    @unpack c = mate
+    @unpack Nx, X, Qp = mesh
+    @unpack Ω, signal = src
+    @bp
+
+    for i=1:Nx[1]+1, j=1:Nx[2]+1, k=1:Nx[3]+1
+        Qp[i,j,k][4] = -0.5*signal(-X[i,1,1][1]/c,Ω)/c^2
+        Qp[i,j,k][11] = 0.5*signal(-X[i,1,1][1]/c,Ω)/c
+    end
 
     # Iterations
     print("Run start (" * Dates.format(now(), "HH:MM") * ")\n")
@@ -86,7 +97,22 @@ function main()
 
     # Analytical solution
     if ana
-        xth, uth, res = compSol(mate, mesh, src)
+        # xth, uth, res = compSol(mate, mesh, src)
+        
+        res = false
+        jy = trunc(Int, 0.5*Nx[2]) + 1
+        kz = trunc(Int, 0.5*Nx[3]) + 1
+        xp = [ X[i,jy,kz][1] for i=1:Nx[1]+1 ]
+        up = [ 0. for i=1:Nx[1]+1, f=1:mesh.Nf ]
+        xth = copy( reshape(xp, Nx[1]+1) )
+        uth = copy( reshape(up, (Nx[1]+1, mesh.Nf)) )
+        if mate.Nv <= 0
+            for i=1:Nx[1]+1
+                uth[i,11] = 0.5/c * signal(mesh.t - xth[i]/c, Ω)
+            end
+            res = true
+        end
+
         if res
             hp2 = plot!(hp1, xth, uth[:,10:12], color="black")
             display(hp2)
