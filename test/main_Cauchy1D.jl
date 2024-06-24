@@ -3,7 +3,7 @@
 # (SoftSol3D) pkg> activate .
 # (SoftSol3D) pkg> instantiate
 #
-# julia> include("test/main_Shear1D.jl")
+# julia> include("test/main_Cauchy1D.jl")
 """
 
 # Load 'Dev' packages
