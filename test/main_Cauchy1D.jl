@@ -43,7 +43,7 @@ function main()
     Sin2(t::Float64, Ω::Float64) = 1e0 * (sin(Ω*t) - 0.5*sin(2*Ω*t)) .* ((t>=0) - (t>=2*π/Ω))
     src = Source(
         spar = SourcePar(
-            type = "None", # "None", "Plane", "Point"
+            type = "None", # "None", "Plane", "Cylinder", "Point"
             dir = 1, # 1
             cmp = 2 # 2
         ),

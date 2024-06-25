@@ -3,7 +3,7 @@
 # (SoftSol3D) pkg> activate .
 # (SoftSol3D) pkg> instantiate
 #
-# julia> include("test/main_Shear1D.jl")
+# julia> include("test/main_Shear3D.jl")
 """
 
 # Load 'Dev' packages
@@ -25,29 +25,29 @@ function main()
     mate = Material(
         ρ = 1.0e3, # 1.0e3 (kg/m³)
         μ = 2.684e3, # 2.684e3 (Pa)
-        β = 0., # 4.4
+        β = 4.4, # 4.4
         g = [0.0434, 0.0466, 0.2213], # [0.0434, 0.0466, 0.2213]
         ω = 2*π * [10^1, 10^2, 10^3], # 2*π * [10^1, 10^2, 10^3]
         ϵ = 0.9 # 0.9 (AC parameter)
     )
     mesh = Mesh(
-        xmin = [-0.5, -0.1, -0.1], # [-0.5, -0.1, -0.1]
-        xmax = [ 0.5,  0.1,  0.1], # [ 0.5,  0.1,  0.1]
-        tmax = 0.18, # 0.18
-        Nx = [1000, 4, 4], # [100, 2, 2], [100, 4, 4]
+        xmin = [-0.3, -0.3, -0.3], # [-0.5, -0.1, -0.1]
+        xmax = [ 0.3,  0.3,  0.3], # [ 0.5,  0.1,  0.1]
+        tmax = 0.1, # 0.18
+        Nx = [300, 300, 4], # [200, 200, 4]
         Nt = 0, # 0
         Co = 0.95, # 0.95 (Courant number)
         flux = "MUSCL", # "LLF", "MUSCL"
         Nf = 6*minimum(length, [mate.g, mate.ω]) + 12 # 6*minimum(length, [mate.g, mate.ω]) + 12
     )
-    Sin2(t::Float64, Ω::Float64) = 1e0 * (sin(Ω*t) - 0.5*sin(2*Ω*t)) .* ((t>=0) - (t>=2*π/Ω))
+    Sin2(t::Float64, Ω::Float64) = 5e-3 * (sin(Ω*t) - 0.5*sin(2*Ω*t)) .* ((t>=0) - (t>=2*π/Ω))
     src = Source(
         spar = SourcePar(
-            type = "Plane", # "None", "Plane", "Cylinder", "Point"
+            type = "Cylinder", # "None", "Plane", "Cylinder", "Point"
             dir = 1, # 1
-            cmp = 2 # 2
+            cmp = 3 # 3
         ),
-        Ω = 46.3, # 46.3
+        Ω = 82.35, # 82.35
         signal = Sin2 # Sin2
     )
     fpara = 9 + src.spar.cmp # field for paraview display
@@ -61,7 +61,7 @@ function main()
 
     # Plot centered slice
     xplot, uplot = Slice(src.spar.dir, mesh)
-    hp1 = plot(xplot, uplot[:,10:12], title = string("t = ", mesh.t), markershape = :circle, markersize=3)
+    hp1 = plot(xplot, uplot[:,10:12], title = string("t = ", mesh.t), xlabel = string("x", src.spar.dir), markershape = :circle, markersize=3)
     display(hp1)
     xlabel!("space (m)")
     ylabel!("velocities (m/s)")
