@@ -13,7 +13,7 @@ export SourcePar, initSource
     Run(mate::Material, mesh::Mesh, src::Source)
 
 Executes the main loop for the parameters specified in the argument. The numerical solution 
-at the final time `data.t` is stored in `data.Qp`. This data vector of size ``6N+13`` has the following structure:
+at the final time `data.t` is stored in `data.Qp`. This data vector of size ``6N+12`` has the following structure:
 
 ``{\\bf Q} = \\left(F_{11}, F_{12}, F_{13}, \\dots , F_{33}, v_1, v_2, v_3, [S_1^\\text{v}]_{11}, \\dots , [S_N^\\text{v}]_{33}\\right)^\\top``
 
@@ -152,7 +152,7 @@ end
 """
     LocalMaxSpeedsLin(Q::Array{Float64,1}, mate::Material, cmaxloc::Array{Float64,1})
 
-LocalMaxSpeeds clone for the linear case
+LocalMaxSpeeds clone for the linear case.
 """
 function LocalMaxSpeedsLin(Q::Array{Float64,1}, mate::Material, cmaxloc::Array{Float64,1})
     @unpack cp = mate
