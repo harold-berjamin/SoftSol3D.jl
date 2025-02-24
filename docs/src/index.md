@@ -31,7 +31,7 @@ where `/home/JuliaUser/Downloads/SoftSol3D` is the path to the SoftSol3D folder.
 
 ### Citation
 
-H. Berjamin (2023). "Computation of viscoelastic shear shock waves using finite volume schemes with artificial compressibility", *Arxiv preprint* 2310.04355. [doi:10.48550/arXiv.2310.04355](https://doi.org/10.48550/arXiv.2310.04355)
+H. Berjamin (2025). "Computation of viscoelastic shear shock waves using finite volume schemes with artificial compressibility", *International Journal for Numerical Methods in Biomedical Engineering* 41(2), e70012. [doi:10.1002/cnm.70012](https://doi.org/10.1002/cnm.70012)
 
 ### Acknowledgments
 
